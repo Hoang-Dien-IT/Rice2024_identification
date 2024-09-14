@@ -1,0 +1,8 @@
+./flask_web_rice/venv
+./flask_web_rice/.idea
+./flask_web_rice/__pycache__
+
+venv
+.idea
+__pycache__
+
