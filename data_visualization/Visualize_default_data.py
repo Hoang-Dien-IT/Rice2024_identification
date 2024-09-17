@@ -29,14 +29,14 @@ plt.xlabel('Thuộc tính', fontsize=9)
 plt.ylabel('Giá trị', fontsize=12)
 plt.show()
 
-# # Loại bỏ cột 'Class' hoặc bất kỳ cột nào không phải dạng số
-# numeric_df = df.select_dtypes(include=[np.number])
-# # Tính toán ma trận tương quan chỉ với các cột dạng số
-# corr_matrix = numeric_df.corr()
-# # Vẽ heatmap của ma trận tương quan
-# plt.figure(figsize=(10, 8))
-# sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-# plt.show()
+# Loại bỏ cột 'Class' hoặc bất kỳ cột nào không phải dạng số
+numeric_df = df.select_dtypes(include=[np.number])
+# Tính toán ma trận tương quan chỉ với các cột dạng số
+corr_matrix = numeric_df.corr()
+# Vẽ heatmap của ma trận tương quan
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.show()
 
 # Vẽ biểu đồ tán xạ giữa Area và Perimeter
 plt.figure(figsize=(8, 6))

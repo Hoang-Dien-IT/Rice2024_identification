@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 # Đọc tập dữ liệu từ file CSV (giả định rằng bạn có file rice_dataset.csv)
-df = pd.read_excel('Rice2024_cleaned.xlsx', engine='openpyxl')
+df = pd.read_csv('./standardized-rice.csv')
 
 # Hiển thị vài dòng đầu tiên của tập dữ liệu
 print(df.head())
