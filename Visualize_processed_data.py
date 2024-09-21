@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 # Đọc tập dữ liệu từ file CSV (giả định rằng bạn có file rice_dataset.csv)
-df = pd.read_excel('Rice2024.xlsx', engine='openpyxl')
+df = pd.read_csv('./standardized-rice.csv')
 
 # Hiển thị vài dòng đầu tiên của tập dữ liệu
 print(df.head())
@@ -64,16 +64,10 @@ plt.show()
 #Biểu đồ thể hiện số lượng dữ liệu thiếu
 print(df.isnull().sum())
 
-missing_values = df.isnull().sum()
-missing_values = missing_values[missing_values > 0]
-plt.figure(figsize=(10, 6))
-missing_values.plot(kind='bar', color='orange')
-plt.title('Biểu đồ số lượng dữ liệu thiếu của từng thuộc tính')
-plt.ylabel('Number of Missing Values')
-plt.show()
-
-
-
-
-
-
+# missing_values = df.isnull().sum()
+# missing_values = missing_values[missing_values > 0]
+# plt.figure(figsize=(10, 6))
+# missing_values.plot(kind='bar', color='orange')
+# plt.title('Biểu đồ số lượng dữ liệu thiếu của từng thuộc tính')
+# plt.ylabel('Number of Missing Values')
+# plt.show()
