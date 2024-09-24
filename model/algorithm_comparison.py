@@ -7,10 +7,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, recall_score, precision_score
 import matplotlib.pyplot as plt
 
-df = pd.read_excel('Rice2024_cleaned.xlsx', engine='openpyxl')
+df = pd.read_excel('standardized-rice.xlsx', engine='openpyxl')
 
-X = df.iloc[:, :-1].values
-y = df.iloc[:, -1].values
+X = df.iloc[:, 1:-1].values
+y = df.iloc[:, 0].values
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=50)
