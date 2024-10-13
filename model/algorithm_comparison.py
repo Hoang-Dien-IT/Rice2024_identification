@@ -7,7 +7,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, recall_score, precision_score
 import matplotlib.pyplot as plt
 
-df = pd.read_excel('standardized-rice.xlsx', engine='openpyxl')
+df = pd.read_excel('./standardized-rice.xlsx', engine='openpyxl')
 
 X = df.iloc[:, 1:-1].values
 y = df.iloc[:, 0].values

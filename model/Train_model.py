@@ -7,7 +7,7 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_excel('standardized-rice.xlsx', engine='openpyxl')
+df = pd.read_excel('./standardized-rice.xlsx', engine='openpyxl')
 
 X = df.iloc[:, 1:].values
 y = df.iloc[:, 0].values
