@@ -44,6 +44,19 @@ print(f"Độ chính xác mô hình precision: {precision:.3f}")
 print(f"Độ chính xác mô hình recall: {accuracy:.3f}")
 print(f"ma trận nhầm lẫn: \n", confusion_matrix)
 
+metrics = ['Accuracy', 'Precision', 'Recall']
+values = [accuracy*100, precision * 100, recall * 100]
+
+plt.figure(figsize=(8, 5))
+plt.bar(metrics, values, color=['blue', 'green', 'orange'])
+
+plt.title('Biểu đồ so sánh độ chính xác, precision và recall của mô hình', fontsize=14)
+plt.ylabel('Giá trị (%)', fontsize=12)
+plt.ylim([0, 100])
+for i, value in enumerate(values):
+    plt.text(i, value + 1, f'{value:.2f}%', ha='center', fontsize=12)
+plt.show()
+
 joblib.dump(model, 'random_forest_model_rice.pkl')
 print("Save model successfully: random_forest_model_rice.pkl")
 
