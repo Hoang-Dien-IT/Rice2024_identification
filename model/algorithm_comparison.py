@@ -6,14 +6,19 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, recall_score, precision_score
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
-df = pd.read_excel('./standardized-rice.xlsx', engine='openpyxl')
+scale = MinMaxScaler()
 
-X = df.iloc[:, 1:-1].values
+df = pd.read_excel('../data_processing/xoa-2cot-rice.xlsx', engine='openpyxl')
+
+X = df.iloc[:, 1:].values
+
+# print(pd.DataFrame(X))
 y = df.iloc[:, 0].values
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=50)
+
 
 models = {
     'RandomForest': RandomForestClassifier(n_estimators=100),
@@ -29,13 +34,20 @@ metrics = {
 
 # Vòng lặp huấn luyện và tính toán kết quả 20 lần
 for i in range(20):
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3)
+    X_train = scale.fit_transform(X_train)
+    X_test = scale.transform(X_test)
+    
     for name, model in models.items():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
 
         metrics['accuracy'][name] += accuracy_score(y_test, y_pred)
-        metrics['precision'][name] += precision_score(y_test, y_pred, average='weighted')
-        metrics['recall'][name] += recall_score(y_test, y_pred, average='weighted')
+        metrics['precision'][name] += precision_score(
+            y_test, y_pred, average='weighted')
+        metrics['recall'][name] += recall_score(
+            y_test, y_pred, average='weighted')
 
 # Tính giá trị trung bình cho mỗi mô hình
 for metric in metrics:
@@ -43,9 +55,12 @@ for metric in metrics:
         metrics[metric][name] /= 20
 
 for model_name in models:
-    print(f"Accuracy trung bình 20 lần {model_name}: {metrics['accuracy'][model_name]*100:.2f} %")
-    print(f"Precision trung bình 20 lần {model_name}: {metrics['precision'][model_name]:.2f}")
-    print(f"Recall trung bình 20 lần {model_name}: {metrics['recall'][model_name]:.2f}")
+    print(
+        f"Accuracy trung bình 20 lần {model_name}: {metrics['accuracy'][model_name]*100:.2f} %")
+    print(
+        f"Precision trung bình 20 lần {model_name}: {metrics['precision'][model_name]:.2f}")
+    print(
+        f"Recall trung bình 20 lần {model_name}: {metrics['recall'][model_name]:.2f}")
 
 """Biểu đồ trực qua giá trị trung bình 20 lần của accuracy"""
 models_list = list(models.keys())
@@ -76,8 +91,10 @@ index = np.arange(len(models_list))
 
 # Tạo biểu đồ
 plt.figure(figsize=(12, 6))
-bar1 = plt.bar(index, precisions, bar_width, label='Precision', color='skyblue')
-bar2 = plt.bar(index + bar_width, recalls, bar_width, label='Recall', color='lightcoral')
+bar1 = plt.bar(index, precisions, bar_width,
+               label='Precision', color='skyblue')
+bar2 = plt.bar(index + bar_width, recalls, bar_width,
+               label='Recall', color='lightcoral')
 
 plt.title('Precision và Recall trung bình của các mô hình phân loại')
 plt.xlabel('Mô hình')
